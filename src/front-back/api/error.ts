@@ -1,6 +1,6 @@
 export
 enum API_ERROR {
-    INVALID_INPUT = 'invalid input',
+    UNKNOWN = 'unknown',
 
-    LOGIN_FAILED = 'login failed',
+    INVALID_INPUT = 'invalid input',
 }

@@ -10,6 +10,7 @@ async function sign_up_in(provider: 'github', oauth_id: string): Promise<string>
     })
     let userid: ObjectId
     const now = new Date()
+    const session_token = randomUUID()
     if (user_oauth === null) {
         // sign up
         const inserted_user = await user_collection.insertOne({
@@ -24,6 +25,12 @@ async function sign_up_in(provider: 'github', oauth_id: string): Promise<string>
             created_at: now,
         })
         userid = inserted_user.insertedId
+        // insert session on sign-up
+        await session_collection.insertOne({
+            userid,
+            session_token,
+            created_at: now,
+        })
     } else {
         // sign in
         const user = await user_collection.findOne({
@@ -32,12 +39,14 @@ async function sign_up_in(provider: 'github', oauth_id: string): Promise<string>
         if (user === null)
             throw new Error('user not found during sign-in')
         userid = user._id
+        // update session on sign-in
+        await session_collection.updateOne(
+            { userid },
+            { $set: {
+                session_token,
+                created_at: now,
+            }},
+        )
     }
-    const session_token = randomUUID()
-    await session_collection.insertOne({
-        userid,
-        session_token,
-        created_at: now,
-    })
     return session_token
 }
