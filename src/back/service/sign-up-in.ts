@@ -21,6 +21,7 @@ async function sign_up_in(provider: 'github', oauth_id: string): Promise<string>
             provider,
             oauth_id,
             userid: inserted_user.insertedId,
+            created_at: now,
         })
         userid = inserted_user.insertedId
     } else {
@@ -36,6 +37,7 @@ async function sign_up_in(provider: 'github', oauth_id: string): Promise<string>
     await session_collection.insertOne({
         userid,
         session_token,
+        created_at: now,
     })
     return session_token
 }

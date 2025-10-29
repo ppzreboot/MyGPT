@@ -14,10 +14,12 @@ const user_oauth_collection = mongo_db.collection<{
     userid: ObjectId
     provider: 'github'
     oauth_id: string
+    created_at: Date
 }>('user-oauth')
 
 export
 const session_collection = mongo_db.collection<{
     userid: ObjectId
     session_token: string
+    created_at: Date
 }>('session')
