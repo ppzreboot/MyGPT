@@ -1,2 +1,3 @@
 export
-const session_duration = 2 * 24 * 60 * 60 // 2 days in seconds
+// const session_duration_ms = 2 * 24 * 60 * 60 * 1000 // 2 days in milliseconds
+const session_duration_ms = 1 * 60 * 1000 // 2 minutes in milliseconds
