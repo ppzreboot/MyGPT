@@ -40,13 +40,18 @@ async function sign_up_in(provider: 'github', oauth_id: string): Promise<string>
             throw new Error('user not found during sign-in')
         userid = user._id
         // update session on sign-in
-        await session_collection.updateOne(
+        const result = await session_collection.updateOne(
             { userid },
             { $set: {
                 session_token,
                 created_at: now,
             }},
         )
+        if (result.matchedCount !== 1) {
+            console.error('error on updating session on sign-in', result)
+            throw Error('no session found on sign-in')
+        }
     }
+    console.log('sign up/in successful', { userid })
     return session_token
 }

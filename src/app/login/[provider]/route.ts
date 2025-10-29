@@ -5,7 +5,6 @@ import { redirect, RedirectType } from 'next/navigation'
 import { NextRequest } from 'next/server'
 import { get_userinfo_by_code } from 'ppz-oauth-login/github'
 
-
 export
 async function GET(req: NextRequest, { params }: { params: Promise<{ provider: string }>}): Promise<Response> {
     /* input */
