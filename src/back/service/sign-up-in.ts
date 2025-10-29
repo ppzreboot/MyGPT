@@ -9,10 +9,13 @@ async function sign_up_in(provider: 'github', oauth_id: string): Promise<string>
         oauth_id,
     })
     let userid: ObjectId
+    const now = new Date()
     if (user_oauth === null) {
         // sign up
         const inserted_user = await user_collection.insertOne({
-            // ...
+            is_friend: false,
+            created_at: now,
+            updated_at: now,
         })
         await user_oauth_collection.insertOne({
             provider,
