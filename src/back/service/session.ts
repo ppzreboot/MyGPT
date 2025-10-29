@@ -30,6 +30,5 @@ async function get_current_user() {
     })
     if (user === null)
         throw new Error(`user not found: ${userid}`)
-
     return user
 }

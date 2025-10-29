@@ -3,7 +3,7 @@ import { sign_up_in } from '@/back/service/sign-up-in'
 import { cookies } from 'next/headers'
 import { redirect, RedirectType } from 'next/navigation'
 import { NextRequest } from 'next/server'
-import { get_userinfo_by_code } from 'ppz-oauth-login/github'
+import { get_token_by_code, get_userinfo_by_token } from 'ppz-oauth-login/github'
 
 export
 async function GET(req: NextRequest, { params }: { params: Promise<{ provider: string }>}): Promise<Response> {
@@ -18,9 +18,17 @@ async function GET(req: NextRequest, { params }: { params: Promise<{ provider: s
     }
 
     /* get userid from oauth provider */
-    const [err, userinfo] = await get_userinfo_by_code(auth_code, APP_ENV.github_client_id, APP_ENV.github_client_secret)
-    if (err)
+    const [err1, token] = await get_token_by_code(auth_code, APP_ENV.github_client_id, APP_ENV.github_client_secret)
+    if (err1) {
+        console.log(err1)
         return new Response('login failed', { status: 500 })
+    }
+
+    const [err2, userinfo] = await get_userinfo_by_token(token)
+    if (err2) {
+        console.log(err2)
+        return new Response('login failed 2', { status: 500 })
+    }
 
     /* sign up / sign in */
     const session_token = await sign_up_in('github', userinfo.id)
