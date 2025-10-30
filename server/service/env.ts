@@ -6,6 +6,7 @@ interface I_app_env {
     session_duration: number
     github_oauth_client_id: string
 
+    github_oauth_client_secret: string
     mongo_db_uri: string
 }
 
@@ -31,6 +32,9 @@ function parse_app_env(): I_app_env {
         github_oauth_client_id,
     })
 
+    const github_oauth_client_secret = Deno.env.get('github_oauth_client_secret')
+    if (!is_real_string(github_oauth_client_secret))
+        throw Error('app env error: GITHUB OAUTH CLIENT SECRET')
     const mongo_db_uri = Deno.env.get('mongo_db_uri')
     if (!is_real_string(mongo_db_uri))
         throw Error('app env error: MONGO_DB_URI')
@@ -38,8 +42,10 @@ function parse_app_env(): I_app_env {
     return {
         app_mode,
         github_oauth_client_id,
-        mongo_db_uri,
         session_duration,
         port,
+
+        mongo_db_uri,
+        github_oauth_client_secret,
     }
 }

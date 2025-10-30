@@ -1,4 +1,4 @@
-import { ObjectId, MongoClient } from 'npm:mongodb'
+import { ObjectId, MongoClient } from 'mongodb'
 
 export
 function init_service__mongo_db(connect_uri: string, db_name: string) {
