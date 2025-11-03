@@ -5,7 +5,7 @@ import { init_server } from './init-server.ts'
 import { init_service__sign_up_in } from "../service/sign-up-in.ts";
 
 import { route__login } from '../handler/oauth-login.ts'
-import { route__home } from '../handler/home.ts'
+import { route__static } from '../handler/static-files.ts'
 
 const env = parse_app_env()
 const app_model = init_service__mongo_db(env.mongo_db_uri, 'MyGPT')
@@ -20,7 +20,7 @@ const service = {
 }
 
 init_server(env.port, service, [
-    route__home,
+    route__static,
     route__login,
 ])
 

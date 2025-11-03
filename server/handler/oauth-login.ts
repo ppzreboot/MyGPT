@@ -9,7 +9,7 @@ const route__login: I_route = (method, url) => {
     return null
 }
 
-const login_with_code: I_http_handler = async (req, service, { url }) => {
+const login_with_code: I_http_handler = async (_, service, { url }) => {
     const auth_code = url.searchParams.get('code')
     if (!is_real_string(auth_code))
         return Response.json({
@@ -23,6 +23,7 @@ const login_with_code: I_http_handler = async (req, service, { url }) => {
         return Response.json({ error })
     }
 
+    // @ts-ignore: 这好像是 deno 的 bug
     const session_token = await service.sign_up_in('github', userinfo.id)
     const cookie_str = `session_token=${
         session_token
