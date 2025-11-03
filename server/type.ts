@@ -1,6 +1,18 @@
 import type { I_app_service } from './main/main.ts'
 
 export
+interface I_app_env {
+   app_mode: 'development' | 'production'
+    port: number
+    session_duration: number
+    github_oauth_client_id: string
+
+    mongo_db_uri: string
+    github_oauth_client_secret: string
+    grok_api_key: string
+}
+
+export
 interface I_handler_other {
     url: URL
 }
