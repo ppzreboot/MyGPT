@@ -8,5 +8,9 @@
     "@std/assert": "jsr:@std/assert@1",
     "@std/http": "jsr:@std/http@^1.0.21",
     "mongodb": "npm:mongodb@^6.20.0"
+  },
+  "deploy": {
+    "org": "ppz-ai",
+    "app": "mygpt"
   }
 }
