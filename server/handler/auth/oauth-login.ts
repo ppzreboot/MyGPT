@@ -1,6 +1,6 @@
-import type { I_http_handler, I_route } from '../type.ts'
+import type { I_http_handler, I_route } from '../../type.ts'
 import { get_userinfo_by_code } from '@ppz/oauth-login/github'
-import { is_real_string } from '../utils/type-checker.ts'
+import { is_real_string } from '../../utils/type-checker.ts'
 
 export
 const route__login: I_route = (method, url) => {

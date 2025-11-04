@@ -7,7 +7,7 @@ function init_service__session_maker(
     app_model: I_app_model,
     session_duration_ms: number,
 ) {
-    return function make_session(req: Request, res: Response) {
+    return function session(req: Request) {
         async function get_current_user_id(): Promise<ObjectId
             | 'no session token'
             | 'invalid/expired session'
@@ -18,14 +18,10 @@ function init_service__session_maker(
             if (session_token === null)
                 return 'no session token'
             const doc = await app_model.session.findOne({ session_token })
-            if (doc === null) {
-                rm_session_token(res)
+            if (doc === null)
                 return 'invalid/expired session'
-            }
-            if (now - doc.created_at.getTime() > session_duration_ms) {
-                rm_session_token(res)
+            if (now - doc.created_at.getTime() > session_duration_ms)
                 return 'invalid/expired session'
-            }
             return doc.userid
         }
         async function get_current_user() {
@@ -41,6 +37,7 @@ function init_service__session_maker(
         return {
             get_current_user_id,
             get_current_user,
+            rm_session_token: 'session_token=; Path=/; Max-Age=0',
         }
     }
 }
@@ -54,8 +51,4 @@ function read_session_token(req: Request) {
     if (typeof(token) !== 'string' || token.length === 0)
         return null
     return token
-}
-
-function rm_session_token(res: Response) {
-    res.headers.append('Set-Cookie', 'session_token=; Path=/; Max-Age=0')
 }
