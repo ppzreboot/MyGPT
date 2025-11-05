@@ -1,6 +1,6 @@
 module Api.SignIn exposing (retrieve__auth_status, I_oauth_login_item, I_auth_status(..))
 
-import Api.AAA
+import Api.Base
 import Http
 import Json.Decode
 
@@ -34,9 +34,9 @@ decoder__auth_status =
             )
         )
 
-retrieve__auth_status : ((Result Http.Error (Api.AAA.T_result I_auth_status)) -> msg) -> Cmd msg
+retrieve__auth_status : ((Result Http.Error (Api.Base.T_result I_auth_status)) -> msg) -> Cmd msg
 retrieve__auth_status make_msg =
     Http.get
         { url = "/api/auth/has-login"
-        , expect = Http.expectJson make_msg (Api.AAA.make_decoder decoder__auth_status)
+        , expect = Http.expectJson make_msg (Api.Base.make_decoder decoder__auth_status)
         }
