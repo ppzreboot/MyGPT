@@ -1,4 +1,4 @@
-cd app
-elm make src/Main.elm --output=static/_c/main.js
+cd client
+npm run build
 
-cp -r ./static/ ../server/_static
+cp -r ./dist/ ../server/_static

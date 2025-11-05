@@ -3,3 +3,7 @@ elm-stuff
 _env.ts
 _c
 _static
+
+dist
+node_modules
+package-lock.json
