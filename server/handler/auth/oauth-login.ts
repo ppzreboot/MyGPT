@@ -13,14 +13,18 @@ const login_with_code: I_http_handler = async (_, service, { url }) => {
     const auth_code = url.searchParams.get('code')
     if (!is_real_string(auth_code))
         return Response.json({
-            error: 'no code'
+            error: true,
+            key: 'no code'
         })
     
     const [oauth_error, userinfo] = await get_userinfo_by_code(auth_code, service.env.github_oauth_client_id, service.env.github_oauth_client_secret)
     if (oauth_error !== 0) {
-        const error = 'failed to get oauth_id'
-        console.error(error, oauth_error)
-        return Response.json({ error })
+        const err_key = 'failed to get oauth_id'
+        console.error(err_key, oauth_error)
+        return Response.json({
+            error: true,
+            key: err_key,
+        })
     }
 
     // @ts-ignore: 这好像是 deno 的 bug
@@ -31,7 +35,7 @@ const login_with_code: I_http_handler = async (_, service, { url }) => {
         service.env.session_duration / 1000
         }; ${
         service.env.app_mode === 'production' ? 'Secure;' : ''
-        } HttpOnly;`
+        } HttpOnly; Path=/`
     return new Response(null, {
         status: 302,
         headers: {
