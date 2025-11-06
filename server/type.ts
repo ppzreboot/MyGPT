@@ -6,10 +6,11 @@ interface I_app_env {
     port: number
     session_duration: number
     github_oauth_client_id: string
+    llm_base_url: string
 
     mongo_db_uri: string
     github_oauth_client_secret: string
-    grok_api_key: string
+    llm_api_key: string
 }
 
 export

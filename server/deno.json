@@ -4,9 +4,11 @@
     "pro": "deno run --env-file -A main/main.ts"
   },
   "imports": {
+    "@openai/openai": "jsr:@openai/openai@^6.8.1",
     "@ppz/oauth-login": "jsr:@ppz/oauth-login@0.0.6",
     "@std/assert": "jsr:@std/assert@1",
     "@std/http": "jsr:@std/http@^1.0.21",
+    "@zod/zod": "jsr:@zod/zod@^4.1.12",
     "mongodb": "npm:mongodb@^6.20.0"
   },
   "deploy": {
