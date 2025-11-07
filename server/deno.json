@@ -1,7 +1,7 @@
 {
   "tasks": {
-    "dev": "deno run --env-file --watch -A main/main.ts",
-    "pro": "deno run --env-file -A main/main.ts"
+    "dev": "deno run --watch -A main/main.ts",
+    "pro": "deno run -A main/main.ts"
   },
   "imports": {
     "@openai/openai": "jsr:@openai/openai@^6.8.1",
