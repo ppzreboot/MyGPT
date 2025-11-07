@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { retrieve__auth_status, type I_auth_status } from './api/auth'
+import { retrieve__auth_status, type I_auth_status } from '../api/auth'
+import { Chat_screen } from './chat'
 
 export
 function App() {
@@ -11,7 +12,7 @@ function App() {
   if (state === null)
     return <div>Loading Auth Status</div>
   if (state.signed_in)
-    return <div>hello, ppz</div>
+    return <Chat_screen />
   return <ul>
     {state.oauth_list.map(oauth =>
         <li>
