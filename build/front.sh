@@ -1,4 +1,4 @@
 cd client
 npm run build
 
-cp -r ./dist/ ../server/_static
+cp -r ./dist/* ../server/_static
