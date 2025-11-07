@@ -14,9 +14,10 @@ const env = parse_app_env()
 const app_model = init_service__mongo_db(env.mongo_db_uri, 'MyGPT')
 const session = init_service__session_maker(app_model, env.session_duration)
 const sign_up_in = init_service__sign_up_in(app_model)
-const llm_client = init_service__openai_client({
+const llm = init_service__openai_client({
     base_url: env.llm_base_url,
     api_key: env.llm_api_key,
+    app_model,
 })
 
 const service = {
@@ -24,7 +25,7 @@ const service = {
     app_model,
     session,
     sign_up_in,
-    llm_client,
+    llm,
 }
 
 init_server(env.port, service, [

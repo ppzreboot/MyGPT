@@ -32,6 +32,7 @@ function init_service__mongo_db(connect_uri: string, db_name: string) {
 
         chat: db.collection<{
             title: string
+            created_at: Date
         }>('chat'),
         msg: db.collection<{
             chat_id: ObjectId

@@ -10,13 +10,6 @@ const post_first_msg: I_http_handler = async (req, service) => {
     const { msg } = await req.json()
     return Response.json({
         error: false,
-        data: await service.llm_client.title_chat(msg)
+        data: await service.llm.create_chat(msg),
     })
-
-    // service.app_model.chat.insertOne({
-    //     title: msg,
-    // })
-    // service.app_model.msg.insertOne({
-
-    // })
 }
